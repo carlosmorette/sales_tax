@@ -1,25 +1,20 @@
-defmodule MyApp.Config do
-  @moduledoc """
-  Handles loading and accessing tax configuration with proper error handling.
-  """
-
+defmodule SalesTax.Config do
+  @moduledoc false
   require Logger
-  alias MyApp.Types
+  alias SalesTax.Types
 
-  @config_file Application.compile_env(:my_app, [Config, :tax_rules_path])
+  @config_file Application.compile_env(:sales_tax, [Config, :tax_rules_path])
 
-  @doc """
-  Returns the tax rates and exempt categories.
-  """
   @spec get_tax_rates() :: {:ok, Types.tax_rates()} | {:error, String.t()}
   def get_tax_rates do
-    case load_config() do
-      {:ok, config} -> parse_config(config)
+    with {:ok, config} <- load_config(),
+         {:ok, parsed} <- parse_config(config) do
+      {:ok, parsed}
+    else
       error -> error
     end
   end
 
-  @spec load_config() :: {:ok, map()} | {:error, String.t()}
   defp load_config do
     case File.read(@config_file) do
       {:ok, content} ->
@@ -34,7 +29,6 @@ defmodule MyApp.Config do
     end
   end
 
-  @spec parse_config(map()) :: {:ok, Types.tax_rates()} | {:error, String.t()}
   defp parse_config(%{
          basic_tax_rate: basic_rate,
          import_duty_rate: import_rate,

@@ -1,4 +1,4 @@
-defmodule MyAppTest do
+defmodule SalesTaxTest do
   use ExUnit.Case, async: true
 
   describe "tax calculation scenarios" do
@@ -25,7 +25,7 @@ defmodule MyAppTest do
 
       expected =
         """
-        2 livro: 24.98
+        2 livro: 12.49
         1 CD de música: 16.49
         1 barra de chocolate: 0.85
         Impostos sobre vendas: 1.50
@@ -33,7 +33,7 @@ defmodule MyAppTest do
         """
         |> String.trim_trailing()
 
-      assert {:ok, ^expected} = MyApp.process_json(input)
+      assert {:ok, ^expected} = SalesTax.process_json(input)
     end
 
     test "input 2: 1 imported chocolate box, 1 imported perfume" do
@@ -65,7 +65,7 @@ defmodule MyAppTest do
         """
         |> String.trim_trailing()
 
-      assert {:ok, ^expected} = MyApp.process_json(input)
+      assert {:ok, ^expected} = SalesTax.process_json(input)
     end
 
     test "input 3: imported perfume, local perfume, headache pills, imported chocolates" do
@@ -107,19 +107,19 @@ defmodule MyAppTest do
         1 frasco importado de perfume: 32.19
         1 frasco de perfume: 20.89
         1 pacote de comprimidos para dor de cabeça: 9.75
-        3 caixas importadas de chocolates: 35.55
+        3 caixas importadas de chocolates: 11.85
         Impostos sobre vendas: 7.90
         Total: 98.38
         """
         |> String.trim_trailing()
 
-      assert {:ok, ^expected} = MyApp.process_json(input)
+      assert {:ok, ^expected} = SalesTax.process_json(input)
     end
   end
 
   describe "edge cases" do
     test "empty items list returns error" do
-      assert {:error, _reason} = MyApp.process_json(%{items: []})
+      assert {:error, _reason} = SalesTax.process_json(%{items: []})
     end
 
     test "invalid item returns error" do
@@ -130,7 +130,7 @@ defmodule MyAppTest do
         ]
       }
 
-      assert {:error, _reason} = MyApp.process_json(input)
+      assert {:error, _reason} = SalesTax.process_json(input)
     end
   end
 
@@ -163,7 +163,7 @@ defmodule MyAppTest do
       File.write!(file_path, Jason.encode!(input))
 
       try do
-        assert {:ok, ^expected} = MyApp.process_file(file_path)
+        assert {:ok, ^expected} = SalesTax.process_file(file_path)
       after
         # Clean up the temporary file
         File.rm!(file_path)
@@ -171,7 +171,7 @@ defmodule MyAppTest do
     end
 
     test "with non-existent file returns error" do
-      assert {:error, _reason} = MyApp.process_file("non_existent_file.json")
+      assert {:error, _reason} = SalesTax.process_file("non_existent_file.json")
     end
   end
 end

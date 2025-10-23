@@ -1,4 +1,4 @@
-defmodule MyApp.Types do
+defmodule SalesTax.Types do
   @moduledoc """
   Define os tipos usados no domínio de cálculo de impostos
   """

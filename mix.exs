@@ -1,21 +1,27 @@
-defmodule MyApp.MixProject do
+defmodule SalesTax.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :my_app,
-      version: "0.1.0",
+      app: :sales_tax,
+      name: "Sales Tax Calculator",
+      version: "1.0.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      description: "A sales tax calculator for imported and domestic products",
+      package: [
+        maintainers: ["Morette"],
+        licenses: ["MIT"],
+        links: %{"GitHub" => "https://github.com/morette/sales_tax"}
+      ]
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger],
-      mod: {MyApp.Application, []}
+      mod: {SalesTax.Application, []}
     ]
   end
 

@@ -13,7 +13,7 @@ defmodule Mix.Tasks.ProcessReceipt do
   @impl Mix.Task
   def run(args) do
     with [file_path] <- args,
-         {:ok, file_path} <- MyApp.process_file(file_path) do
+         {:ok, file_path} <- SalesTax.process_file(file_path) do
       IO.puts(file_path)
     else
       [] ->
