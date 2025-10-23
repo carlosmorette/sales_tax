@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "quantity": 2,
+      "name": "livro",
+      "price": 12.49,
+      "is_imported": false,
+      "category": "book"
+    },
+    {
+      "quantity": 1,
+      "name": "CD de música",
+      "price": 14.99,
+      "is_imported": false,
+      "category": "other"
+    },
+    {
+      "quantity": 1,
+      "name": "barra de chocolate",
+      "price": 0.85,
+      "is_imported": false,
+      "category": "food"
+    }
+  ]
+}
