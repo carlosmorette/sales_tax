@@ -17,7 +17,7 @@ defmodule SalesTax.FileProcessor do
   @spec process_json(map()) :: {:ok, String.t()} | {:error, String.t()}
   def process_json(%{} = input) do
     with {:ok, %{items: items}} <- Validator.validate_input(input),
-         {:ok, tax_rates} <- Config.get_tax_rates() do
+         tax_rates <- Config.get_tax_rates() do
       items_with_taxes = Calculator.calculate_taxes(items, tax_rates)
       totals = Calculator.calculate_totals(items_with_taxes)
       receipt = Receipt.generate_receipt(items_with_taxes, totals)
